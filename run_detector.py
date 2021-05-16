@@ -93,7 +93,7 @@ if __name__ == '__main__':
         # For detected faces
         for (box, prediction) in zip(locations, predictions):
             (startX, startY, endX, endY) = box
-            (mask_on, mask_off) = prediction
+            (mask_off, mask_on) = prediction
 
             label = 'Mask on' if mask_on > mask_off else 'Mask off'  # Prediction label
             color = (0, 255, 0) if label == 'Mask on' else (0, 0, 255)  # Bounding box
@@ -104,7 +104,7 @@ if __name__ == '__main__':
 
             # Display the label and the bounding box on the stream
             cv2.putText(frame, label, (startX, startY - 10),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
+                        cv2.FONT_HERSHEY_COMPLEX, 0.45, color, 2)
             cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
 
         # Show the frame window
