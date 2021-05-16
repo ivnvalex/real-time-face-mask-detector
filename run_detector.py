@@ -111,7 +111,7 @@ if __name__ == '__main__':
         cv2.imshow('LIVE video streaming', frame)
 
         # 'q' button for break
-        if cv2.waitKey(0) & 0xFF == ord('q'):
+        if cv2.waitKey(1) & 0xFF == ord("q"):
             break
 
     # Close the window
