@@ -91,15 +91,15 @@ if __name__ == '__main__':
         (locations, predictions) = detect_mask(frame, face_net, mask_net)
 
         # For detected faces
-        for (box, pred) in zip(locations, predictions):
+        for (box, prediction) in zip(locations, predictions):
             (startX, startY, endX, endY) = box
-            (mask, withoutMask) = pred
+            (mask_on, mask_off) = prediction
 
-            label = 'Mask on' if mask > withoutMask else 'Mask off'  # Prediction label
+            label = 'Mask on' if mask_on > mask_off else 'Mask off'  # Prediction label
             color = (0, 255, 0) if label == 'Mask on' else (0, 0, 255)  # Bounding box
 
             # include the probability in the label
-            probability = max(mask, withoutMask) * 100  # Probability of mask on/off
+            probability = max(mask_on, mask_off) * 100  # Probability of mask on/off
             label = f'{label}: {probability:.2f}%'
 
             # Display the label and the bounding box on the stream
@@ -107,6 +107,13 @@ if __name__ == '__main__':
                         cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
             cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
 
-        # show the output frame
+        # Show the frame window
         cv2.imshow('LIVE video streaming', frame)
-        key = cv2.waitKey(1) == ord('q')
+
+        # 'q' button for break
+        if cv2.waitKey(0) & 0xFF == ord('q'):
+            break
+
+    # Close the window
+    cv2.destroyAllWindows()
+    vs.stop()
