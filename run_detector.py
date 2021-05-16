@@ -49,7 +49,7 @@ def detect_mask(input_frame, face_network, mask_network):
             (endXpoint, endYpoint) = (min(w - 1, endXpoint), min(h - 1, endYpoint))
 
             # Processing the face
-            face = frame[startY:endY, startX:endX]
+            face = frame[startYpoint:endYpoint, startXpoint:endXpoint]
             face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
             face = cv2.resize(face, (224, 224))
             face = img_to_array(face)
